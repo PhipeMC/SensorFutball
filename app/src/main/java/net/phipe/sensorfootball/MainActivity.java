@@ -11,6 +11,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         int width, height;
         int size = 20;
         int border = 6;
+        int P1 = 0, P2 = 0;
         float eX, eY, eZ;
         String X,Y,Z;
         Paint pincel = new Paint();
@@ -58,13 +60,24 @@ public class MainActivity extends AppCompatActivity {
             Y = Float.toString(eY);
             if(eY < (size + border)){
                 eY = (size + border);
-            }else if(eY > (height - size - 170)){
-                eY = height - size - 170;
+                if(eX > (width/5)*2 && eX < (width/5)*3){
+                    P1++;
+                    eX = width/2;
+                    eY = height/2;
+                }
+            }else if(eY > (height - size)){
+                eY = height - size;
+                if(eX > (width/5)*2 && eX < (width/5)*3){
+                    P2++;
+                    eX = width/2;
+                    eY = height/2;
+                }
             }
 
             eZ = sensorEvent.values[2];
             Z = String.format("%.2f",eZ);
             invalidate();
+            setBackgroundResource(R.drawable.cancha);
         }
 
         @Override
@@ -76,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
         protected void onDraw(Canvas canvas) {
             pincel.setColor(Color.RED);
             canvas.drawCircle(eX, eY, eZ+size, pincel);
+            pincel.setColor(Color.WHITE);
+            pincel.setTextSize(35);
+            canvas.drawText(String.format("Score: %d:%d",P1,P2),10,40,pincel);
         }
     }
 }
