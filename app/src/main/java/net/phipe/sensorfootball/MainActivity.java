@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
             pincel.setColor(Color.RED);
             canvas.drawCircle(eX, eY, eZ+size, pincel);
             pincel.setColor(Color.WHITE);
-            pincel.setTextSize(35);
-            canvas.drawText(String.format("Score: %d:%d",P1,P2),10,40,pincel);
+            pincel.setTextSize(70);
+            canvas.drawText(String.format("Score: %d:%d",P1,P2),10,80,pincel);
         }
     }
 }
